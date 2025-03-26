@@ -1,0 +1,10 @@
+Point1,183.0,88.0
+PointHere,380.0,379.0
+PointThere,49.0,438.0
+ExtraPoint,265.0,55.0
+dfdfdsaf,431.0,161.0
+dfdafadsfadvcc,61.0,220.0
+fcvcvccxv,265.0,434.0
+fadsfc,198.0,274.0
+acvadf,349.0,26.0
+czcvzcxv,116.0,342.0

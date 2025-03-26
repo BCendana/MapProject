@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="150.0" prefWidth="300.0" spacing="20.0">
+               <children>
+                  <Label text="Enter Point Name:" />
+                  <TextField fx:id="pointNameTF" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#confirmButtonAction" text="Confirm" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
