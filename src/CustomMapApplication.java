@@ -1,3 +1,14 @@
+// **************************************************************************************************
+// Major Project Assignment - CMIS 202
+// Name:   Braden Cendana
+// Description: A program to create and configure custom maps with custom images.
+//
+// Requirement Tracking:
+// Part 2:
+// - LinkedPointList is a basic linked list
+// - The SpatialPath class contains a stack as a global variable
+// **************************************************************************************************
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

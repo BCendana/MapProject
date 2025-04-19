@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="pathNameTF" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonAction" text="Save Path" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <ComboBox fx:id="pathsCB" prefWidth="150.0" />
+                  <Button fx:id="selectButton" mnemonicParsing="false" onAction="#selectButtonAction" text="Select Path" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete Path" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <ComboBox fx:id="pointsCB" prefWidth="150.0" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonAction" text="Add Point" />
+                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButtonAction" text="Remove Last Point" />
+               </children>
+            </HBox>
+            <TableView fx:id="pathsTable" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

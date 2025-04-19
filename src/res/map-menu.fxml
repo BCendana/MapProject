@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -8,29 +9,30 @@
    <children>
       <VBox alignment="CENTER" layoutY="500.0" prefHeight="100.0" prefWidth="500.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="500.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="250.0" spacing="10.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="250.0" spacing="10.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#saveButtonAction" text="Save" />
-                        <TextField fx:id="saveNameTF" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="250.0" spacing="10.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#loadButtonAction" text="Load" />
-                        <ComboBox fx:id="mapFilesCombo" prefWidth="150.0" />
-                     </children>
-                  </HBox>
+                  <TextField fx:id="saveNameTF" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonAction" text="Save" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="250.0" spacing="10.0">
+               <children>
+                  <ComboBox fx:id="mapFilesCombo" prefWidth="150.0" />
+                  <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButtonAction" text="Load" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#statsButtonAction" text="Stats" />
+                  <Button fx:id="pathsButton" mnemonicParsing="false" onAction="#pathsButtonAction" text="Paths" />
                   <Button mnemonicParsing="false" onAction="#mainMenuButtonAction" text="Back to Main Menu" />
                </children>
             </HBox>
-         </children></VBox>
-      <ImageView fx:id="mapImage" fitHeight="500.0" fitWidth="800.0" onMouseClicked="#mapMouseClickedAction" pickOnBounds="true" preserveRatio="true" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" />
+         </padding></VBox>
+      <ImageView fx:id="mapImage" fitHeight="500.0" fitWidth="500.0" onMouseClicked="#mapMouseClickedAction" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

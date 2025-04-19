@@ -7,7 +7,8 @@ import java.util.Scanner;
 
 /**
  * This represents a map, as in an actual map with places and roads and such.
- * Main feature for now is that it contains a list of points on that map.
+ * Main features for now is that it contains a list of points on that map
+ * as well as a list of paths that connect those points.
  * This class is named SpatialMap in order to try to differentiate from the data structure.
  */
 public class SpatialMap {
@@ -16,6 +17,9 @@ public class SpatialMap {
     private String mapImageFilePath;
     //An arraylist of "points"
     private ArrayList<SpatialPoint> points = new ArrayList<>();
+    //An arraylist of paths or "routes"
+    private ArrayList<SpatialPath> paths = new ArrayList<>();
+
 
     public SpatialMap(String imageFilePath){
         mapImageFilePath = imageFilePath;
@@ -32,8 +36,19 @@ public class SpatialMap {
         return true;
     }
 
+    public SpatialPath addPath(SpatialPath p){
+        paths.add(p);
+        return p;
+    }
+
+    public boolean removePath(SpatialPath p){
+        paths.remove(p);
+        return true;
+    }
+
     public void clear(){
         points.clear();
+        paths.clear();
     }
 
     //Saves the map into a file
@@ -42,9 +57,23 @@ public class SpatialMap {
             FileWriter writer = new FileWriter("src/saves/" + filePath + ".txt");
 
             //Format for saving spatial points
-            //name,x,y
+            //point,name,x,y
             for(SpatialPoint p : points){
-                writer.write(p.getName() + "," + p.getX() + "," + p.getY() + "\n");
+                writer.write("point," + p.getName() + "," + p.getX() + "," + p.getY() + "\n");
+            }
+
+            //Here we format this a bit differently
+            //Rather than recording all the data of each point again,
+            //we instead record its position in the arraylist.
+            //This works because in the point saving above the points are recorded in order
+            for(SpatialPath p : paths){
+                writer.write("path," + p.getName());
+                LinkedPointList.PointNode current = p.getPointList().getFirst();
+                while(current != null){
+                    writer.write("," + points.indexOf(current.point));
+                    current = current.next;
+                }
+                writer.write("\n");
             }
 
             writer.close();
@@ -66,7 +95,18 @@ public class SpatialMap {
             while(scan.hasNextLine()){
                 String s = scan.nextLine();
                 String[] parts = s.split(",");
-                points.add(new SpatialPoint(parts[0], Double.valueOf(parts[1]), Double.valueOf(parts[2])));
+                if(parts[0].equals("point")) {
+                    points.add(new SpatialPoint(parts[1], Double.valueOf(parts[2]), Double.valueOf(parts[3])));
+                }else if(parts[0].equals("path")){
+                    //Here we are loading points off of our "total" point array
+                    //based off of the index that we saved.
+                    SpatialPath newPath = new SpatialPath(parts[1]);
+                    for(int i = 2; i < parts.length; i++){
+                        newPath.addPoint(points.get(Integer.valueOf(parts[i])));
+                    }
+                    newPath.generateLines();
+                    paths.add(newPath);
+                }
             }
 
         } catch (FileNotFoundException e) {
@@ -80,5 +120,9 @@ public class SpatialMap {
 
     public ArrayList<SpatialPoint> getPoints(){
         return points;
+    }
+
+    public ArrayList<SpatialPath> getPaths(){
+        return paths;
     }
 }

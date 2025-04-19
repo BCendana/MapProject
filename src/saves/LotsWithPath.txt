@@ -8,3 +8,4 @@ point,fcvcvccxv,265.0,434.0
 point,fadsfc,198.0,274.0
 point,acvadf,349.0,26.0
 point,czcvzcxv,116.0,342.0
+path,APath,3,5,8

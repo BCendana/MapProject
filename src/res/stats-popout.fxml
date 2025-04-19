@@ -10,7 +10,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
                   <ComboBox fx:id="pointsCB" prefWidth="150.0" />
-                  <Button mnemonicParsing="false" onAction="#closeButtonAction" text="Closest Points" />
+                  <Button fx:id="closestButton" mnemonicParsing="false" onAction="#closeButtonAction" text="Closest Points" />
                </children>
             </HBox>
             <TableView fx:id="pointsTable" prefHeight="200.0" prefWidth="200.0" />

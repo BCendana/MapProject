@@ -1,4 +1,4 @@
-Point1,183.0,88.0
-PointHere,380.0,379.0
-PointThere,49.0,438.0
-ExtraPoint,265.0,55.0
+point,Point1,183.0,88.0
+point,PointHere,380.0,379.0
+point,PointThere,49.0,438.0
+point,ExtraPoint,265.0,55.0

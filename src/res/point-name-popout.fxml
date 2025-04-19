@@ -13,7 +13,7 @@
                   <TextField fx:id="pointNameTF" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#confirmButtonAction" text="Confirm" />
+            <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmButtonAction" text="Confirm" />
          </children>
       </VBox>
    </children>
