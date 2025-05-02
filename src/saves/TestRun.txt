@@ -1,3 +1,5 @@
-point,Test1,228.0,70.0
-point,Test2,398.0,383.0
-point,Test3,57.0,421.0
+res\maps\differentmap.jpg
+point,Point1,183.0,88.0
+point,PointHere,380.0,379.0
+point,PointThere,49.0,438.0
+point,ExtraPoint,265.0,55.0

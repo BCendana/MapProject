@@ -56,6 +56,9 @@ public class SpatialMap {
         try {
             FileWriter writer = new FileWriter("src/saves/" + filePath + ".txt");
 
+            //The first line is always going to be the file path of the map image
+            writer.write(mapImageFilePath + "\n");
+
             //Format for saving spatial points
             //point,name,x,y
             for(SpatialPoint p : points){
@@ -92,6 +95,11 @@ public class SpatialMap {
         try {
             Scanner scan = new Scanner(mapFile);
 
+            //The first line, aka the image path
+            if(scan.hasNextLine()){
+                mapImageFilePath = scan.nextLine();
+            }
+
             while(scan.hasNextLine()){
                 String s = scan.nextLine();
                 String[] parts = s.split(",");
@@ -116,6 +124,10 @@ public class SpatialMap {
 
     public String getMapImageFilePath(){
         return mapImageFilePath;
+    }
+
+    public void setMapImageFilePath(String filePath){
+        mapImageFilePath = filePath;
     }
 
     public ArrayList<SpatialPoint> getPoints(){

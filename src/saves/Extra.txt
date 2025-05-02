@@ -1,3 +1,4 @@
+res/maps/map.jpg
 point,Point1,183.0,88.0
 point,PointHere,380.0,379.0
 point,PointThere,49.0,438.0

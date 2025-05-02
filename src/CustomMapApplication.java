@@ -7,6 +7,15 @@
 // Part 2:
 // - LinkedPointList is a basic linked list
 // - The SpatialPath class contains a stack as a global variable
+// Part 3:
+// - PointBST class is a binary search tree specifically for points
+// - I use the bst in MapState line 608 in order to stop duplicate named points from being created
+// - A HashTable is used in StateController to switch "screens"
+// New Features:
+// Part 3:
+// - Maps can now be saved with different image background
+// - Maps can have their image background changed
+// - Can add new image backgrounds by copying a file on the computer (must be a jpg)
 // **************************************************************************************************
 
 import javafx.application.Application;

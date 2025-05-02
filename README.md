@@ -1,5 +1,18 @@
 # CustomMapProject
-A graphical navigational map software, made for my computer science class. 
+A graphical navigational map software, made for my computer science class.
+
+# Current Features
+- Adding points to a map
+- Getting a point's distance to all other points
+  - Sorted closest to farthest 
+- Adding paths to the map
+  - Which is simply a linked list of points
+  - Is visually represented 
+- Changing the map image
+- Adding new map images
+- Panning of the map image
+- Saving and loading current data
+  - Includes points, paths, and the map image
 
 ## General Description
 ### Who are the users of the software?
@@ -17,6 +30,7 @@ See the UML diagram below for a more in-depth and technical view of how the soft
 The main reason to use this software over existing ones is mainly the customization. Most popular mapping software are based upon real world maps, which in today's world translates into satellite imagery.
 What this software offers is the ability to use your own custom maps, and then further work with them. The maps can be anything the user wishes, even if it doesn't necessarily follow the intended purpose of the software. 
 
+
 ## UML
 ![mpa1](https://github.com/user-attachments/assets/529b11ac-90a5-4dcb-8b19-29f408713e45)
 Key: 
@@ -33,10 +47,10 @@ UML diagram created using PlantUML
 This software utilizes the JavaFX library.  
 
 ## TODO
-- Add logic to buttons to prevent input errors
-  - Includes prevent points with empty names 
-- Implement panning and zooming
-- Implement saves having custom map images
+- Implement zooming
 - Improve aesthetics of menu
 - Add custom icons to points
 - Make point's text more easily readable on various types of backgrounds
+- Add a help/about screen
+- Add a settings screen
+- Implement a weighted graph structure using the SpatialPoints

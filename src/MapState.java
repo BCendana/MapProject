@@ -18,11 +18,15 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -39,6 +43,8 @@ public class MapState extends ProgramState {
     @FXML
     private ComboBox<String> mapFilesCombo;
     @FXML
+    private ComboBox<File> imagesCombo;
+    @FXML
     private Button saveButton;
     @FXML
     private Button loadButton;
@@ -46,14 +52,21 @@ public class MapState extends ProgramState {
     private Button deleteButton;
     @FXML
     private Button pathsButton;
+    @FXML
+    private Button changeImgButton;
+    @FXML
+    private Button delImgButton;
 
     private SpatialMap map;
+
     private AnchorPane root;
     private Rectangle2D viewport;
 
+    private PointBST pointBST;
 
     public MapState(StateController stateController) {
         super(stateController);
+        pointBST = new PointBST();
     }
 
     public Region createContent() {
@@ -62,7 +75,9 @@ public class MapState extends ProgramState {
         Pane mainPane = new Pane();
         root.getChildren().add(mainPane);
 
-        map = new SpatialMap("res/map.jpg");
+        //This acts as the default map for now
+        //At least until I add a settings/configuration page thing
+        map = new SpatialMap("res/maps/map.jpg");
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("res/map-menu.fxml"));
@@ -98,19 +113,45 @@ public class MapState extends ProgramState {
             mouseDown.set(convertToMapCoords(mapImage, new Point2D(e.getX(), e.getY())));
         });
 
+        imagesCombo.setConverter(new StringConverter<File>() {
+            @Override
+            public String toString(File file) {
+                if(file != null)
+                    return file.getName().substring(0, file.getName().length() - 4);
+                return "";
+            }
+
+            @Override
+            public File fromString(String s) {
+                return null;
+            }
+        });
+
         //Add all saved files to the "Load" files combo box.
-        addFilesToCombo();
+        addFilesToCombo("src/saves", mapFilesCombo, false);
+        //Add all maps to maps combo
+        addFilesToCombo("src/res/maps", imagesCombo, true);
 
         //Disable buttons initially
         saveButton.setDisable(true);
         loadButton.setDisable(true);
         deleteButton.setDisable(true);
+        changeImgButton.setDisable(true);
+        delImgButton.setDisable(true);
 
         //Some logic to allow the enabling of some buttons
         mapFilesCombo.setOnAction(e -> {
             if(mapFilesCombo.getValue() != null && !mapFilesCombo.getValue().equals("")){
                 loadButton.setDisable(false);
                 deleteButton.setDisable(false);
+            }
+        });
+
+        imagesCombo.setOnAction(e -> {
+
+            if(imagesCombo.getValue() != null){
+                changeImgButton.setDisable(false);
+                delImgButton.setDisable(false);
             }
         });
 
@@ -171,6 +212,7 @@ public class MapState extends ProgramState {
     //the visual elements of the point are added to the scene.
     private void addPoint(String name, double x, double y) {
         SpatialPoint point = map.addPoint(name, x + viewport.getMinX(), y + viewport.getMinY());
+        pointBST.insert(point);
 
         Circle c = point.getIcon();
         c.setCenterX(c.getCenterX() - viewport.getMinX());
@@ -190,6 +232,7 @@ public class MapState extends ProgramState {
     private void removePoint(SpatialPoint p) {
         root.getChildren().removeAll(p.getIcon(), p.getLabel());
         map.removePoint(p);
+        pointBST.delete(p);
     }
 
     //Adds a path to the map and the visual elements of it
@@ -220,17 +263,71 @@ public class MapState extends ProgramState {
     //Add strings representing all the files in the
     //designated save folder to the combo box.
     //The combo box is used for loading those files.
-    private void addFilesToCombo() {
-        mapFilesCombo.getItems().clear();
-        File folder = new File("src/saves");
+    private void addFilesToCombo(String directory, ComboBox combo, boolean isImageFile) {
+        combo.getItems().clear();
+        File folder = new File(directory);
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
             for (File f : listOfFiles) {
-                String s = f.getName();
-                mapFilesCombo.getItems().add(s.substring(0, s.length() - 4));
+                if(isImageFile){
+                    combo.getItems().add(f);
+                }else {
+                    String s = f.getName();
+                    combo.getItems().add(s.substring(0, s.length() - 4));
+                }
             }
         }
+    }
+
+    @FXML
+    private void addImageButtonAction(){
+        //Create file chooser
+        FileChooser chooser = new FileChooser();
+        //Make it only able to select jpgs
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("JPG Image File", "*.jpg");
+        chooser.getExtensionFilters().add(filter);
+        //Open it up
+        File newMapImage = chooser.showOpenDialog(root.getScene().getWindow());
+       if(newMapImage != null){
+           //Copy the file into the maps directory
+           try {
+               Files.copy(newMapImage.toPath(), new File("src/res/maps/" + newMapImage.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+           } catch (IOException e) {
+               throw new RuntimeException(e);
+           }
+       }
+       //Add it to the images combo and then refresh, just in case
+       //mapFilesCombo.getItems().add(newMapImage.getName().substring(0, newMapImage.getName().length() - 4));
+       addFilesToCombo("src/res/maps/", imagesCombo, true);
+
+    }
+
+    //There is some weird stuff going on here.
+    //Whenever a file is copied over in the res/maps directory during runtime
+    //the program won't recognize it based off of the relative file path.
+    //This is only the case when the file is copied over during the current runtime.
+    //Best as I can tell it is because relative paths are determined at the start of runtime.
+    //To solve this I just get the absolute path of the files when switching
+    //However I still save them in relative format. Because upon load I don't want it to be user/computer dependent.
+    //It shouldn't be a problem there because no files will be copied when the program starts up.
+    @FXML
+    private void changeImgButtonAction(){
+        map.setMapImageFilePath(imagesCombo.getValue().getPath().replace("src\\", ""));
+        try {
+            mapImage.setImage(new Image(imagesCombo.getValue().toURI().toURL().toExternalForm()));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void deleteImgButtonAction(){
+        imagesCombo.getValue().delete();
+        imagesCombo.getItems().remove(imagesCombo.getValue());
+        addFilesToCombo("src/res/maps/", imagesCombo, true);
+        changeImgButton.setDisable(true);
+        delImgButton.setDisable(true);
     }
 
     //Save the current map.
@@ -239,7 +336,7 @@ public class MapState extends ProgramState {
     private void saveButtonAction() {
         System.out.println("Save Button Pressed: " + saveNameTF.getText());
         map.saveMap(saveNameTF.getText());
-        addFilesToCombo();
+        addFilesToCombo("src/saves", mapFilesCombo, false);
     }
 
     //Load the selected map into the spatial map,
@@ -251,10 +348,21 @@ public class MapState extends ProgramState {
         for (SpatialPoint p : map.getPoints()) {
             root.getChildren().removeAll(p.getIcon(), p.getLabel());
         }
+        for(SpatialPath p : map.getPaths()){
+            Stack<Line> lines = p.getLinesStack();
+            while(!lines.isEmpty()){
+                root.getChildren().remove(lines.pop());
+            }
+        }
+        pointBST.clear();
 
         map.loadMap(mapFilesCombo.getValue());
 
-        //Add points to screen
+        //Change map image
+        Image image = new Image(map.getMapImageFilePath());
+        mapImage.setImage(image);
+
+        //Add points to screen & bst
         for (SpatialPoint p : map.getPoints()) {
             Circle c = p.getIcon();
             c.setCenterX(c.getCenterX() - viewport.getMinX());
@@ -266,6 +374,8 @@ public class MapState extends ProgramState {
             t.setX(t.getX() - viewport.getMinX());
             t.setY(t.getY() - viewport.getMinY());
             root.getChildren().addAll(c, t);
+
+            pointBST.insert(p);
         }
 
         //Add paths to screen
@@ -284,7 +394,7 @@ public class MapState extends ProgramState {
     @FXML
     private void deleteButtonAction(){
         new File("src/saves/" + mapFilesCombo.getValue() + ".txt").delete();
-        addFilesToCombo();
+        addFilesToCombo("src/saves", mapFilesCombo, false);
         loadButton.setDisable(true);
         deleteButton.setDisable(true);
     }
@@ -493,7 +603,9 @@ public class MapState extends ProgramState {
                     confirmButton.setDisable(true);
 
                     pointNameTF.textProperty().addListener(evt -> {
-                        if(pointNameTF.getText() != null && !pointNameTF.getText().equals("")){
+                        //the bst use here is lazy. I should go through and alter the code in some way to not make it
+                        //awkward like this... but it works and there is other stuff I need to work on.
+                        if(pointNameTF.getText() != null && !pointNameTF.getText().equals("") && !pointBST.contains(new SpatialPoint(pointNameTF.getText(), 0, 0))){
                             confirmButton.setDisable(false);
                         }else{
                             confirmButton.setDisable(true);

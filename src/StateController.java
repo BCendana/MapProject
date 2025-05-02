@@ -1,6 +1,6 @@
 import javafx.scene.Scene;
 
-import java.util.HashMap;
+import java.util.Hashtable;
 
 /**
  * The StateController class organizes and switches between ProgramStates.
@@ -9,12 +9,12 @@ import java.util.HashMap;
  */
 public class StateController {
 
-    private HashMap<String, ProgramState> states;
+    private Hashtable<String, ProgramState> states;
     private Scene mainScene;
 
     public StateController(Scene mainScene){
         this.mainScene = mainScene;
-        states = new HashMap<>();
+        states = new Hashtable<>();
     }
 
     public void addState(String name, ProgramState p){
