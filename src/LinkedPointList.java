@@ -87,6 +87,10 @@ public class LinkedPointList {
         return head;
     }
 
+    public PointNode getLast(){
+        return tail;
+    }
+
     public int getSize(){
         return size;
     }

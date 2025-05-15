@@ -1,0 +1,5 @@
+defaultImageFilepath=differentmap
+textColor=0.0,0.0,1.0
+iconColor=0.0,0.0,0.0
+pathColor=0.0,0.0,0.0
+edgeColor=0.0,0.0,0.0

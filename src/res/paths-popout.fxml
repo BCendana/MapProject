@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="377.0" prefWidth="400.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0">
+      <VBox alignment="CENTER" prefHeight="377.0" prefWidth="400.0">
          <children>
+            <Label text="Graph Edges" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
+                  <ComboBox fx:id="p1CB" prefWidth="150.0" />
+                  <ComboBox fx:id="p2CB" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="403.0" spacing="20.0">
+               <children>
+                  <Button fx:id="createEdgeButton" mnemonicParsing="false" onAction="#createEdgeButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Create Edge" />
+                  <Button fx:id="deleteEdgeButton" mnemonicParsing="false" onAction="#deleteEdgeButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Delete Edge" />
+               </children></HBox>
+            <Label alignment="CENTER" text="Paths" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="20.0">
+               <children>
                   <TextField fx:id="pathNameTF" />
-                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonAction" text="Save Path" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Save Path" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <ComboBox fx:id="pathsCB" prefWidth="150.0" />
-                  <Button fx:id="selectButton" mnemonicParsing="false" onAction="#selectButtonAction" text="Select Path" />
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete Path" />
+                  <Button fx:id="selectButton" mnemonicParsing="false" onAction="#selectButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Select Path" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Delete Path" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <ComboBox fx:id="pointsCB" prefWidth="150.0" />
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonAction" text="Add Point" />
-                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButtonAction" text="Remove Last Point" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Add Point" />
+                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Remove Last Point" />
                </children>
             </HBox>
-            <TableView fx:id="pathsTable" prefHeight="200.0" prefWidth="200.0" />
+            <TableView fx:id="pathsTable" prefHeight="150.0" prefWidth="400.0" />
          </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>

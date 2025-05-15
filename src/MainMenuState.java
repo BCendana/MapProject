@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * This ProgramState represents the main menu.
- * For now, it basically either ends the program or moves it into the MapState.
+ * Has buttons to move into the other states. For now those are the MapState and SettingsState.
  */
 public class MainMenuState extends ProgramState{
 
@@ -38,5 +38,10 @@ public class MainMenuState extends ProgramState{
     @FXML
     private void mapButtonAction(){
         controller.setActive("map");
+    }
+
+    @FXML
+    private void settingsButtonAction(){
+        controller.setActive("settings");
     }
 }

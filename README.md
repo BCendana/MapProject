@@ -4,15 +4,25 @@ A graphical navigational map software, made for my computer science class.
 # Current Features
 - Adding points to a map
 - Getting a point's distance to all other points
-  - Sorted closest to farthest 
+  - Sorted closest to farthest
+- Adding edges to a maps graph
+  - Is represented visually
 - Adding paths to the map
   - Which is simply a linked list of points
   - Is visually represented 
+  - Paths between points must coincide with an edge on the graph
+- Switching between path view and graph view
 - Changing the map image
 - Adding new map images
 - Panning of the map image
 - Saving and loading current data
-  - Includes points, paths, and the map image
+  - Includes points, paths, graph edges, and the map image
+- Settings which include...
+  - Default map image
+  - Point icon color
+  - Point text color
+  - Path color
+  - Edge color
 
 ## General Description
 ### Who are the users of the software?
@@ -48,9 +58,6 @@ This software utilizes the JavaFX library.
 
 ## TODO
 - Implement zooming
-- Improve aesthetics of menu
 - Add custom icons to points
 - Make point's text more easily readable on various types of backgrounds
 - Add a help/about screen
-- Add a settings screen
-- Implement a weighted graph structure using the SpatialPoints

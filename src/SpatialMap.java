@@ -1,3 +1,5 @@
+import javafx.scene.shape.Line;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,23 +18,54 @@ public class SpatialMap {
     //A variable containing the image of the map
     private String mapImageFilePath;
     //An arraylist of "points"
-    private ArrayList<SpatialPoint> points = new ArrayList<>();
+    //private ArrayList<SpatialPoint> points = new ArrayList<>();
+    private WeightedPointGraph pointsGraph;
     //An arraylist of paths or "routes"
     private ArrayList<SpatialPath> paths = new ArrayList<>();
 
-
     public SpatialMap(String imageFilePath){
         mapImageFilePath = imageFilePath;
+        pointsGraph = new WeightedPointGraph();
+    }
+
+    public ArrayList<WeightedPointEdge> getNeighbors(SpatialPoint point){
+        if(pointsGraph.getPoints().contains(point)){
+            return pointsGraph.getNeighbors(point);
+        }else{
+            return new ArrayList<>();
+        }
+    }
+
+    public void addEdge(SpatialPoint p1, SpatialPoint p2){
+        pointsGraph.addEdge(p1, p2);
+    }
+
+    public void addEdge(WeightedPointEdge edge){
+        pointsGraph.addEdge(edge);
+    }
+
+    public void removeEdge(SpatialPoint p1, SpatialPoint p2){
+        pointsGraph.removeEdge(p1, p2);
+    }
+
+    public void removeEdge(WeightedPointEdge edge){
+        pointsGraph.removeEdge(edge);
+    }
+
+    public ArrayList<Line> getGraphLines(){
+        return pointsGraph.getLines();
     }
 
     public SpatialPoint addPoint(String name,double x, double y){
         SpatialPoint p = new SpatialPoint(name, x, y);
-        points.add(p);
+        //points.add(p);
+        pointsGraph.addPoint(p);
         return p;
     }
 
     public boolean removePoint(SpatialPoint p){
-        points.remove(p);
+        //points.remove(p);
+        pointsGraph.removePoint(p);
         return true;
     }
 
@@ -47,7 +80,8 @@ public class SpatialMap {
     }
 
     public void clear(){
-        points.clear();
+        //points.clear();
+        pointsGraph.clear();
         paths.clear();
     }
 
@@ -61,7 +95,8 @@ public class SpatialMap {
 
             //Format for saving spatial points
             //point,name,x,y
-            for(SpatialPoint p : points){
+            //for(SpatialPoint p : points){
+            for(SpatialPoint p : pointsGraph.getPoints()){
                 writer.write("point," + p.getName() + "," + p.getX() + "," + p.getY() + "\n");
             }
 
@@ -73,10 +108,26 @@ public class SpatialMap {
                 writer.write("path," + p.getName());
                 LinkedPointList.PointNode current = p.getPointList().getFirst();
                 while(current != null){
-                    writer.write("," + points.indexOf(current.point));
+                    //writer.write("," + points.indexOf(current.point));
+                    writer.write("," + pointsGraph.getPoints().indexOf(current.point));
                     current = current.next;
                 }
                 writer.write("\n");
+            }
+
+            ArrayList<WeightedPointEdge> savedEdges = new ArrayList<>();
+            //Add all non-duplicate edges to the save file
+            for(SpatialPoint p : pointsGraph.getPoints()){
+                for(WeightedPointEdge e : pointsGraph.getNeighbors(p)){
+                    //Ensure that only non-duplicates are added
+                    //Saves on saves file bloat
+                    //and when added back upon loading things will be duplicated
+                    //when ensuring that the graph remains undirectional
+                    if(!savedEdges.contains(e)){
+                        writer.write("edge," + pointsGraph.getPoints().indexOf(e.getP1()) + "," + pointsGraph.getPoints().indexOf(e.getP2()) + "\n");
+                        savedEdges.add(e);
+                    }
+                }
             }
 
             writer.close();
@@ -104,16 +155,20 @@ public class SpatialMap {
                 String s = scan.nextLine();
                 String[] parts = s.split(",");
                 if(parts[0].equals("point")) {
-                    points.add(new SpatialPoint(parts[1], Double.valueOf(parts[2]), Double.valueOf(parts[3])));
+                    //points.add(new SpatialPoint(parts[1], Double.valueOf(parts[2]), Double.valueOf(parts[3])));
+                    pointsGraph.addPoint(new SpatialPoint(parts[1], Double.valueOf(parts[2]), Double.valueOf(parts[3])));
                 }else if(parts[0].equals("path")){
                     //Here we are loading points off of our "total" point array
                     //based off of the index that we saved.
                     SpatialPath newPath = new SpatialPath(parts[1]);
                     for(int i = 2; i < parts.length; i++){
-                        newPath.addPoint(points.get(Integer.valueOf(parts[i])));
+                        //newPath.addPoint(points.get(Integer.valueOf(parts[i])));
+                        newPath.addPoint(pointsGraph.getPoints().get(Integer.valueOf(parts[i])));
                     }
                     newPath.generateLines();
                     paths.add(newPath);
+                }else if(parts[0].equals("edge")){
+                    pointsGraph.addEdge(pointsGraph.getPoints().get(Integer.valueOf(parts[1])), pointsGraph.getPoints().get(Integer.valueOf(parts[2])));
                 }
             }
 
@@ -131,7 +186,8 @@ public class SpatialMap {
     }
 
     public ArrayList<SpatialPoint> getPoints(){
-        return points;
+        //return points;
+        return pointsGraph.getPoints();
     }
 
     public ArrayList<SpatialPath> getPaths(){

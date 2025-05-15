@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
          <children>
@@ -13,7 +13,7 @@
                   <TextField fx:id="pointNameTF" />
                </children>
             </HBox>
-            <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmButtonAction" text="Confirm" />
+            <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Confirm" />
          </children>
       </VBox>
    </children>

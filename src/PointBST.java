@@ -20,6 +20,7 @@ public class PointBST {
     public boolean contains(SpatialPoint point){
         PointNode current = root;
 
+        //Just go down the tree while looking for the specified point
         while(current != null){
             if(point.getName().compareTo(current.point.getName()) < 0){
                 current = current.left;

@@ -1,0 +1,12 @@
+res/maps/map.jpg
+point,Point1,183.0,88.0
+point,PointHere,380.0,379.0
+point,PointThere,49.0,438.0
+point,ExtraPoint,265.0,55.0
+point,Thing,54.0,251.0
+point,Bling,423.0,252.0
+path,Test,0,3
+edge,0,5
+edge,0,3
+edge,2,4
+edge,5,4

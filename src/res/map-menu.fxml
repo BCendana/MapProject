@@ -5,41 +5,42 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" layoutY="500.0" prefHeight="150.0" prefWidth="500.0">
+      <VBox alignment="CENTER" layoutY="500.0" prefHeight="200.0" prefWidth="500.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="250.0" spacing="10.0">
                <children>
                   <TextField fx:id="saveNameTF" />
-                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonAction" text="Save" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Save" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="250.0" spacing="10.0">
                <children>
                   <ComboBox fx:id="mapFilesCombo" prefWidth="150.0" />
-                  <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButtonAction" text="Load" />
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete" />
+                  <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Load" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Delete" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <ComboBox fx:id="imagesCombo" prefWidth="150.0" />
-                  <Button fx:id="changeImgButton" mnemonicParsing="false" onAction="#changeImgButtonAction" text="Change Image" />
-                  <Button mnemonicParsing="false" onAction="#addImageButtonAction" text="Add Image" />
-                  <Button fx:id="delImgButton" mnemonicParsing="false" onAction="#deleteImgButtonAction" text="Delete Image" />
+                  <Button fx:id="changeImgButton" mnemonicParsing="false" onAction="#changeImgButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Change Image" />
+                  <Button mnemonicParsing="false" onAction="#addImageButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Add Image" />
+                  <Button fx:id="delImgButton" mnemonicParsing="false" onAction="#deleteImgButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Delete Image" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#statsButtonAction" text="Stats" />
-                  <Button fx:id="pathsButton" mnemonicParsing="false" onAction="#pathsButtonAction" text="Paths" />
-                  <Button mnemonicParsing="false" onAction="#mainMenuButtonAction" text="Back to Main Menu" />
+                  <Button mnemonicParsing="false" onAction="#statsButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Stats" />
+                  <Button fx:id="pathsButton" mnemonicParsing="false" onAction="#pathsButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Connections" />
+                  <Button fx:id="switchButton" mnemonicParsing="false" onAction="#switchButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="View Graph" />
+                  <Button mnemonicParsing="false" onAction="#mainMenuButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Back to Main Menu" />
                </children>
             </HBox>
          </children>
          <padding>
-            <Insets bottom="5.0" />
+            <Insets bottom="20.0" top="20.0" />
          </padding></VBox>
       <ImageView fx:id="mapImage" fitHeight="500.0" fitWidth="500.0" onMouseClicked="#mapMouseClickedAction" pickOnBounds="true" preserveRatio="true" />
    </children>

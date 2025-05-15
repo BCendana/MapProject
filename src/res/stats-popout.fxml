@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
                   <ComboBox fx:id="pointsCB" prefWidth="150.0" />
-                  <Button fx:id="closestButton" mnemonicParsing="false" onAction="#closeButtonAction" text="Closest Points" />
+                  <Button fx:id="closestButton" mnemonicParsing="false" onAction="#closeButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Closest Points" />
                </children>
             </HBox>
             <TableView fx:id="pointsTable" prefHeight="200.0" prefWidth="200.0" />

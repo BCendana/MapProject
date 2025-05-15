@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="700.0" prefWidth="500.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <Label text="Default Image:" />
+                     </children>
+                  </HBox>
+                  <ComboBox fx:id="imagesCombo" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <Label text="Point Text Color (RGB):" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <TextField fx:id="textR" prefWidth="50.0" />
+                        <TextField fx:id="textG" prefWidth="50.0" />
+                        <TextField fx:id="textB" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="323.0" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <Label text="Point Icon Color (RGB):" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <TextField fx:id="iconR" prefWidth="50.0" />
+                        <TextField fx:id="iconG" prefWidth="50.0" />
+                        <TextField fx:id="iconB" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="273.0" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <Label text="Path Color (RGB):" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <TextField fx:id="pathR" prefWidth="50.0" />
+                        <TextField fx:id="pathG" prefWidth="50.0" />
+                        <TextField fx:id="pathB" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="423.0" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <Label text="Edge Color (RGB):" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="150.0">
+                     <children>
+                        <TextField fx:id="edgeR" prefWidth="50.0" />
+                        <TextField fx:id="edgeB" prefWidth="50.0" />
+                        <TextField fx:id="edgeG" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Save Settings">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#mainMenuButtonAction" styleClass="dark-blue" stylesheets="@styles.css" text="Back to Main Menu">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
